@@ -1,0 +1,6 @@
+framework module Pods_EndApp {
+  umbrella header "Pods-EndApp-umbrella.h"
+
+  export *
+  module * { export * }
+}
