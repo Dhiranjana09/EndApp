@@ -8,7 +8,6 @@
 import Foundation
 
 final class ProductsViewModel {
-    
     private var productsService: EndProductService
     private var productList: [Product] = []
     
@@ -45,7 +44,4 @@ final class ProductsViewModel {
     func getProduct(at indexPath: IndexPath) -> Product {
         return productList[indexPath.row]
     }
-
-
-
 }

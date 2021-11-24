@@ -12,6 +12,7 @@ struct Results: Codable {
     let productCount : Int?
     let products : [Product]?
     let title : String?
+    
     enum CodingKeys: String, CodingKey {
         case productCount = "product_count"
         case products = "products"

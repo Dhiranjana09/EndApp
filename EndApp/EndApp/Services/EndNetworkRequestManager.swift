@@ -16,12 +16,10 @@ class EndNetworkRequestManager: EndProductService {
     
     private let defaultSession = URLSession(configuration: .default)
     private var dataTask: URLSessionDataTask?
+    let urlString = "https://www.endclothing.com/media/catalog/example.json"
     
     func getProductList(completionHandler: @escaping (_ result: Results?, _ error: Error?) -> Void) {
         dataTask?.cancel()
-        
-        let urlString = "https://www.endclothing.com/media/catalog/example.json"
-        
         guard let url = URL(string: urlString) else {
             return
         }
@@ -50,5 +48,4 @@ class EndNetworkRequestManager: EndProductService {
         
         dataTask?.resume()
     }
-
 }

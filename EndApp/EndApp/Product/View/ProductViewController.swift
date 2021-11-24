@@ -64,12 +64,11 @@ extension ProductViewController: UICollectionViewDelegate, UICollectionViewDataS
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        // Configure the cell
+        
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier:
                                                                 "ProductCell", for: indexPath) as? ProductViewCell  else {
             
             let cell = UICollectionViewCell()
-            
             return cell
         }
         let cellViewModel = viewModel.getProductCellViewModel(at: indexPath)
@@ -81,7 +80,7 @@ extension ProductViewController: UICollectionViewDelegate, UICollectionViewDataS
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {
         let detailVC = self.storyboard?.instantiateViewController(withIdentifier: "ProductDetailViewController") as! ProductDetailViewController
-        detailVC.setUI = viewModel.getProduct(at: indexPath)
+        detailVC.product = viewModel.getProduct(at: indexPath)
         self.navigationController?.pushViewController(detailVC, animated: true)
     }
     

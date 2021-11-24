@@ -13,7 +13,6 @@ class ProductsViewModelTests: XCTestCase {
     private var viewModel: ProductsViewModel?
     private var service: EndProductServiceMock?
     private var productCellVM: ProductsCellViewModel?
-    let indexPath = IndexPath(row: 0, section: 0)
     var result: Results!
     
     override func setUpWithError() throws {
@@ -61,14 +60,14 @@ class ProductsViewModelTests: XCTestCase {
 
     func testGetProductwithError(){
         // given
-        let errorMsg: Error?
-        service?.results = nil
+        let error = MockNetworkError()
+        service?.error = error
         
         //when
-        viewModel?.getProducts(success: {error in
+        viewModel?.getProducts(success: { _ in
             XCTFail()
         }, failure: { error in
-            XCTAssertEqual(error.localizedDescription, "something went wrong")
+            XCTAssertEqual(error.localizedDescription, MockNetworkError.errorMessage)
         })
     }
    
@@ -86,18 +85,27 @@ class ProductsViewModelTests: XCTestCase {
         
     }
     
-   
-        func testGetProduct(){
+    func testGetProduct() {
+        // given
+        service?.results = self.result
+        viewModel?.getProducts(success: nil, failure: nil)
+        let indexPath = IndexPath(row: 0, section: 0)
         
-        }
+        // when
+        let product = viewModel?.getProduct(at: indexPath)
+        XCTAssertEqual(product?.name, self.result.products?[0].name)
+    }
     
-    
-    
-
-  
-
-
-
+    func testGetProductCellViewModel() {
+        // given
+        service?.results = self.result
+        viewModel?.getProducts(success: nil, failure: nil)
+        let indexPath = IndexPath(row: 0, section: 0)
+        
+        // when
+        let productVM = viewModel?.getProductCellViewModel(at: indexPath)
+        XCTAssertEqual(productVM?.name, self.result.products?[0].name)
+    }
 
 }
 
